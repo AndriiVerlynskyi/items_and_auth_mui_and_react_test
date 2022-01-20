@@ -55,8 +55,15 @@ const EditPostForm = () => {
               rows={3}
               {...register('text')}
             />
-            <Button color='warning' variant='contained' size='large' type='submit'>
-              <Link to='/posts' style={{textDecoration:'none', color:'white'}}>
+            <Button color='warning' variant='contained' size='large' type='submit' sx={{padding:'0px'}}>
+              <Link 
+                to='/posts' 
+                style={{
+                  textDecoration:'none', 
+                  color:'white',
+                  padding:'8px 22px'
+                }}
+              >
                 Edit
               </Link>
             </Button>

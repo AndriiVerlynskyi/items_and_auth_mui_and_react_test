@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../routes/routes';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
+
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -12,21 +13,25 @@ import Button from '@mui/material/Button';
 
 const AddPostForm = () => {
 
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit
   } = useForm()
 
-  const onSubmit = postData => {
-    // axios({
-    //   method: 'post',
-    //   url: `${baseUrl}/posts`,
-    //   data: {
-    //     title: postData.title,
-    //     text: postData.text
-    //   }
-    // })
+  const onSubmit = async (postData) => {
+    console.log(postData)
+    await axios({
+      method: 'post',
+      url: `${baseUrl}/posts`,
+      data: {
+        title: postData.title,
+        text: postData.text
+      }
+    })
     console.log('success')
+    navigate("/posts", { replace: true })
   }
 
   return (
@@ -35,13 +40,15 @@ const AddPostForm = () => {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField 
+              name='title'
               id="standard-basic" 
               label="Title" 
               variant="filled" 
               sx={{width:'100%'}}
-              {...register('title', {required: 'Please enter the title of the post'})}
+              {...register('title', {required: true})}
             />
             <TextField 
+              name='text'
               id="standard-basic" 
               label="Text" 
               variant="filled" 
@@ -49,12 +56,38 @@ const AddPostForm = () => {
               margin='normal'
               multiline
               rows={3}
-              {...register('text', {required: 'Please enter the text of the post'})}
+              {...register('text', {required: true})}
             />
-            <Button color='success' variant='contained' size='large' type='submit'>
-              <Link to='/posts' style={{textDecoration:'none', color:'white'}}>
+            <Button 
+              color='success' 
+              variant='contained' 
+              size='large' 
+              type='submit' 
+              // sx={{padding:'0px', position:'relative'}}
+            >
+              {/* <Link
+                to='/posts'
+                style={{
+                  textDecoration:'none', 
+                  color:'white',
+                  padding:'8px 22px'
+                }}
+                onClick={ e => e.preventDefault()}
+              >
+                <input 
+                  type='submit' 
+                  value='Submit' 
+                  style={{
+                    position:'absolute', 
+                    top:'0',
+                    left:'0',
+                    width:'100%', 
+                    height:'100%',
+                    backgroundColor:'#2e7d32'
+                    }}/>
                 Submit
-              </Link>
+              </Link> */}
+              Submit
             </Button>
           </form>
         </CardContent>

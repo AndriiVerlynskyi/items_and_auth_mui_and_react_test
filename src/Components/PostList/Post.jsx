@@ -20,7 +20,8 @@ const StyledCard = styled(Card)( ({theme}) => ({
 const Post = ( {post} ) => {
 
   const handleDelete = () => {
-    axios.delete(`${baseUrl}/posts/${post.id}`)
+    axios.delete(`${baseUrl}/posts/${post.id}`);
+
   }
 
   return (
@@ -29,16 +30,24 @@ const Post = ( {post} ) => {
             title={post.title}
             action={
                 <IconButton onClick={handleDelete}>
-                    <DeleteIcon/>
+                    <Link 
+                      to='/deletePost'
+                      style={{
+                        color:'rgba(0, 0, 0, 0.87)',
+                        textDecoration:'none'
+                      }}
+                    >
+                      <DeleteIcon/>
+                    </Link>
                 </IconButton>
             }
         />
         <CardContent>{post.text}
             <Box sx={{position:'absolute', bottom:'20px', right:'20px'}}>
-              <Button variant="contained" color="warning" sx={{margin:'10px 0px 0px 0px'}}>
+              <Button variant="contained" color="warning" sx={{margin:'10px 0px 0px 0px', padding:'0px'}}>
                 <Link 
                   to={`/editPost/:${post.id}`}
-                  style={{textDecoration:'none', color:'white'}}
+                  style={{textDecoration:'none', color:'white', padding:'8px 22px'}}
                 >Edit</Link>
               </Button>
             </Box>

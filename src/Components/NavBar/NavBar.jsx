@@ -25,9 +25,11 @@ const NavBar = () => {
                 <StyledNavButton>
                     <RouterLink to="/posts" style={{color:'white', textDecoration:'none'}}>Posts</RouterLink>
                 </StyledNavButton>
-                <StyledNavButton>
-                    <RouterLink to="/login" style={{color:'white', textDecoration:'none'}}>Login</RouterLink>
-                </StyledNavButton>
+                <Box>
+                    <StyledNavButton>
+                        <RouterLink to="/login" style={{color:'white', textDecoration:'none'}}>Login</RouterLink>
+                    </StyledNavButton>
+                </Box>
             </Toolbar>
         </StyledAppBar>
     )

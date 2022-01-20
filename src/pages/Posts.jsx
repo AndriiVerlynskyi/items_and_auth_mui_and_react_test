@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { baseUrl } from '../routes/routes';
-import { Link } from 'react-router-dom';
 import PostList from '../Components/PostList/PostList';
 
 import Box from '@mui/material/Box';
@@ -25,21 +25,25 @@ import Button from '@mui/material/Button';
 //   }
 // ]
 
-const Posts = () => {
+const Posts = ({reload}) => {
  
   const [posts, setPosts] = useState([])
 
-  useEffect( async () => {
-    console.log()
-    axios(`${baseUrl}posts`).then(resp => setPosts(resp.data));
-  },[])
+  useEffect(() => {
+    axios(`${baseUrl}/posts`).then(resp => setPosts(resp.data));
+    reload=false
+  },[reload])
 
   return (
     <Box>
-        <Button sx={{margin:'10px 25px'}} variant='outlined'>
+        <Button sx={{margin:'10px 25px', padding:'0px'}} variant='outlined'>
           <Link 
             to='/addPost' 
-            style={{textDecoration:'none', color:'#1976d2'}}
+            style={{
+              textDecoration:'none', 
+              color:'#1976d2',
+              padding:'5px 15px'
+            }}
           >
             Add new post
           </Link>

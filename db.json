@@ -1,4 +1,5 @@
-{ "posts": [
+{
+  "posts": [
     {
       "id": 1,
       "title": "First post",
@@ -10,9 +11,14 @@
       "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ab praesentium aspernatur illo esse."
     },
     {
-      "id":3,
+      "id": 3,
       "title": "Third post",
       "text": "Lorem, ipsum dolor."
+    },
+    {
+      "title": "Fourth post",
+      "text": "The content of fourth post",
+      "id": 4
     }
   ]
 }

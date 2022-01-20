@@ -17,11 +17,12 @@ function App() {
     <Router>
       <NavBar/>
       <Routes>
-      <Route exact path="/" element={<Navigate replace to="/login"/>}/>
+        <Route exact path="/" element={<Navigate replace to="/login"/>}/>
         <Route exact path='/login' element={<Auth/>}/>
         <Route exact path='/posts' element={<Posts/>}/>
         <Route exact path='/addPost' element={<AddPost/>}/>
         <Route exact path='/editPost/:id' element={<EditPost/>}/>
+        <Route exact path='/deletePost' element={<Navigate replace to="/posts"/>}/>
       </Routes>
     </Router>
   );

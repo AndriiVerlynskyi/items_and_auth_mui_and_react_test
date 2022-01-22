@@ -19,6 +19,11 @@
       "title": "Fourth post",
       "text": "The content of fourth post",
       "id": 4
+    },
+    {
+      "title": "New title of the fifth post",
+      "text": "New content of the fifth post is set here",
+      "id": 5
     }
   ]
 }

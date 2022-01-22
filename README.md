@@ -1,3 +1,6 @@
+To check the project you have to install json-server package with 'npm install -g json-server' command and then start the server with the 'json-server --watch db.json' in the root folder. Then to start the react on a locallhost
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

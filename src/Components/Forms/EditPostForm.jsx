@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../routes/routes';
-import { Link } from 'react-router-dom'
-import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom'
+import { useForm, useFormState } from 'react-hook-form';
+import { useParams, useNavigate } from 'react-router-dom'
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -11,26 +10,56 @@ import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+
+
 const EditPostForm = () => {
 
-  const postId = useParams()
+  const navigate = useNavigate();
 
-  const [postData, setPostData] = useState(axios(`${baseUrl}/:${postId}`));
+  const { id: postId } = useParams();
+
+  console.log(postId);
+
+  const [postData, setPostData] = useState('');
+
+  useEffect( () => {
+    if(!postData){
+      axios(`${baseUrl}/posts/${postId}`).then( resp => setPostData( resp.data ))
+    }
+  }, []);
 
   const {
     register,
-    handleSubmit
-  } = useForm()
+    handleSubmit, 
+    control
+  } = useForm({
+    defaultValues: {
+      title: postData.title,
+      text: postData.text
+    }
+  })
 
-  const onSubmit = newPostData => {
-    if (newPostData.title !== postData.title){
-      setPostData({title:newPostData.title, ...postData})
-    }
-    if (newPostData.text !== postData.text){
-      setPostData({text:newPostData.text, ...postData})
-    }
-    console.log(postData)
-    axios.put(`${baseUrl}/:${postId}`, {...postData})
+  const { dirtyFields } = useFormState({control});
+
+  const dirtyFieldsHandler = (newPostData) => {
+    const postToSave = {}
+
+    dirtyFields.title ? postToSave.title = newPostData.title : postToSave.title = postData.title
+
+    dirtyFields.text ? postToSave.text = newPostData.text : postToSave.text = postData.text
+
+    return postToSave
+  };
+
+  const onSubmit = async (newPostData) => {
+    const postToSave = dirtyFieldsHandler(newPostData);
+
+    console.log(`${baseUrl}/posts/${postId}`);
+
+    console.log(postToSave);
+
+    await axios.put(`${baseUrl}/posts/${postId}`, postToSave);
+    navigate("/posts", { replace: true })
   }
 
   return (
@@ -55,17 +84,8 @@ const EditPostForm = () => {
               rows={3}
               {...register('text')}
             />
-            <Button color='warning' variant='contained' size='large' type='submit' sx={{padding:'0px'}}>
-              <Link 
-                to='/posts' 
-                style={{
-                  textDecoration:'none', 
-                  color:'white',
-                  padding:'8px 22px'
-                }}
-              >
-                Edit
-              </Link>
+            <Button color='warning' variant='contained' size='large' type='submit'>
+              Edit
             </Button>
           </form>
         </CardContent>

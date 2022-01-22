@@ -46,7 +46,7 @@ const Post = ( {post} ) => {
             <Box sx={{position:'absolute', bottom:'20px', right:'20px'}}>
               <Button variant="contained" color="warning" sx={{margin:'10px 0px 0px 0px', padding:'0px'}}>
                 <Link 
-                  to={`/editPost/:${post.id}`}
+                  to={`/editPost/${post.id}`}
                   style={{textDecoration:'none', color:'white', padding:'8px 22px'}}
                 >Edit</Link>
               </Button>

@@ -25,5 +25,13 @@
       "text": "New content of the fifth post is set here",
       "id": 5
     }
+  ],
+  "users": [
+    {
+      "username": "test",
+      "password": "testPass",
+      "isLoggedIn": true,
+      "id": 1
+    }
   ]
 }
